@@ -5,20 +5,24 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:VtfManagerWin"
         mc:Ignorable="d"
-        Title="MaterialsManager" Height="300" Width="600" ResizeMode="CanMinimize">
+        Title="Materials Manager"
+        Height="350"
+        Width="600"
+        ResizeMode="CanMinimize">
     <Grid>
         <TabControl TabStripPlacement="Left">
-            <TabItem Header="Convert to Bz2">
+            <TabItem Header="Convert to Bz2"
+                     Height="40">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="49*"/>
                         <ColumnDefinition Width="302*"/>
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="65*"/>
+                        <RowDefinition Height="60"/>
                         <RowDefinition Height="30"/>
-                        <RowDefinition Height="97*"/>
-                        <RowDefinition Height="98*"/>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="93"/>
                     </Grid.RowDefinitions>
                     <TextBlock Grid.ColumnSpan="2"
                                Text="This is page for create .bz2 archives!"
@@ -36,33 +40,41 @@
                     <TextBox x:Name="TextBoxToBz2DirInput"
                              VerticalContentAlignment="Center"
                              Grid.Column="2"
-                             Grid.Row="1"/>
+                             Grid.Row="1"
+                             Width="410"/>
 
                     <CheckBox x:Name="CheckBoxToBz2RemoveOriginalFile"
                               Content="Remove Original File"
                               Grid.Row="2"
                               Grid.Column="1"
+                              HorizontalAlignment="Left"
+                              Width="170"
+                              FontSize="14"
                               Margin="0,10,0,0"/>
 
                     <Button x:Name="ButtonToBz2Run"
                             Grid.Column="0"
                             Grid.ColumnSpan="2"
                             Grid.Row="3"
-                            Margin="120, 25, 120, 25"
-                            Content="Run" Click="ButtonToBz2Run_Click"/>
+                            Width="250"
+                            HorizontalAlignment="Center"
+                            Margin="0, 60, 0, -15"
+                            Content="Run"
+                            Click="ButtonToBz2Run_Click"/>
                 </Grid>
             </TabItem>
-            <TabItem Header="Extract Bz2">
+            <TabItem Header="Extract Bz2"
+                     Height="40">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="49*"/>
                         <ColumnDefinition Width="302*"/>
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="65*"/>
+                        <RowDefinition Height="60"/>
                         <RowDefinition Height="30"/>
-                        <RowDefinition Height="97*"/>
-                        <RowDefinition Height="98*"/>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="93"/>
                     </Grid.RowDefinitions>
                     <TextBlock Grid.ColumnSpan="2"
                                Text="This is page for extract .bz2 archives!"
@@ -80,20 +92,77 @@
                     <TextBox x:Name="TextBoxUnBz2DirInput"
                              VerticalContentAlignment="Center"
                              Grid.Column="2"
-                             Grid.Row="1"/>
+                             Grid.Row="1"
+                             Width="410"/>
 
                     <CheckBox x:Name="CheckBoxUnBz2RemoveOriginalFile"
                               Content="Remove Original File"
                               Grid.Row="2"
                               Grid.Column="1"
+                              HorizontalAlignment="Left"
+                              Width="170"
+                              FontSize="14"
                               Margin="0,10,0,0"/>
 
                     <Button x:Name="ButtonUnBz2Run"
                             Grid.Column="0"
                             Grid.ColumnSpan="2"
                             Grid.Row="3"
-                            Margin="120, 25, 120, 25"
+                            Width="250"
+                            HorizontalAlignment="Center"
+                            Margin="0, 60, 0, -15"
                             Content="Run" Click="ButtonUnBz2Run_Click"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="About"
+                     Height="40">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="65"/>
+                        <RowDefinition Height="135"/>
+                        <RowDefinition Height="80"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock x:Name="TextBlockAboutTitle"
+                               Grid.Column="0"
+                               Grid.Row="0"
+                               Text="Materials Manager"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center"
+                               FontSize="16"/>
+
+                    <TextBlock x:Name="TextBlockAboutDescription"
+                               Grid.Column="0"
+                               Grid.Row="1"
+                               Text="The program is designed to quickly compress materials in '.bz2' format and vice versa for servers based on the Source engine (CS:Source, CS:GO, Gmod and etc...) where the FastDL system is used."
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center"
+                               TextWrapping="WrapWithOverflow"
+                               FontSize="16"
+                               Margin="10,0,10,0"/>
+
+                    <TextBlock x:Name="TextBlockAboutAuthor"
+                               Grid.Column="0"
+                               Grid.Row="2"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center"
+                               FontSize="16">
+                        Author:
+                        <Hyperlink x:Name="HyperLinkAboutAuthorVk"
+                                   Click="HyperLinkAboutAuthorVk_Click">
+                            WinsomeQuill
+                        </Hyperlink>
+                        
+                        <LineBreak/>
+                        GitHub (Source code):
+                        <Hyperlink x:Name="HyperLinkAboutGitHub"
+                                   Click="HyperLinkAboutGitHub_Click">
+                            *Click link*
+                        </Hyperlink>
+                        
+                        <LineBreak/>
+                        Version: 1.1.2 (Beta)
+                    </TextBlock>
                 </Grid>
             </TabItem>
         </TabControl>

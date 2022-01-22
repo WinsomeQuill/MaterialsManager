@@ -16,6 +16,8 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Microsoft.Win32;
 using Ookii.Dialogs.Wpf;
+using System.Threading;
+using System.Diagnostics;
 
 namespace MaterialsManager
 {
@@ -82,14 +84,25 @@ namespace MaterialsManager
                 return;
             }
 
-            foreach(string item in Directory.GetFiles(path))
+            new Thread(() =>
             {
-                GoToBz2(item);
-                if ((bool)removeoriginalfile)
+                Dispatcher.Invoke(() =>
                 {
-                    File.Delete(item);
-                }
-            }
+                    Mouse.OverrideCursor = Cursors.Wait;
+                    TextBoxToBz2DirInput.IsEnabled = ButtonToBz2Run.IsEnabled = false;
+                    foreach (string item in Directory.GetFiles(path))
+                    {
+                        GoToBz2(item);
+                        if ((bool)removeoriginalfile)
+                        {
+                            File.Delete(item);
+                        };
+                    }
+
+                    Mouse.OverrideCursor = null;
+                    TextBoxToBz2DirInput.IsEnabled = ButtonToBz2Run.IsEnabled = true;
+                });
+            }).Start();
         }
         private void ButtonUnBz2Run_Click(object sender, RoutedEventArgs e)
         {
@@ -107,23 +120,34 @@ namespace MaterialsManager
                 return;
             }
 
-            foreach (string item in Directory.GetFiles(path))
+            new Thread(() =>
             {
-                try
+                Dispatcher.Invoke(() =>
                 {
-                    ExtractBz2(item);
-                }
-                catch (NotSupportedException)
-                {
-                    MessageBox.Show("Bz2 files not found!", "Error!", MessageBoxButton.OK, MessageBoxImage.Error);
-                    return;
-                }
-                
-                if ((bool)removeoriginalfile)
-                {
-                    File.Delete(item);
-                }
-            }
+                    Mouse.OverrideCursor = Cursors.Wait;
+                    TextBoxUnBz2DirInput.IsEnabled = ButtonUnBz2Run.IsEnabled = false;
+                    foreach (string item in Directory.GetFiles(path))
+                    {
+                        try
+                        {
+                            ExtractBz2(item);
+                        }
+                        catch (NotSupportedException)
+                        {
+                            MessageBox.Show("Bz2 files not found!", "Error!", MessageBoxButton.OK, MessageBoxImage.Error);
+                            return;
+                        }
+
+                        if ((bool)removeoriginalfile)
+                        {
+                            File.Delete(item);
+                        }
+                    }
+
+                    Mouse.OverrideCursor = null;
+                    TextBoxUnBz2DirInput.IsEnabled = ButtonUnBz2Run.IsEnabled = true;
+                });
+            }).Start();
         }
         private void ButtonToBz2OpenFolder_Click(object sender, RoutedEventArgs e)
         {
@@ -144,6 +168,26 @@ namespace MaterialsManager
             {
                 TextBoxUnBz2DirInput.Text = dialog.SelectedPath;
             }
+        }
+
+        private void HyperLinkAboutAuthorVk_Click(object sender, RoutedEventArgs e)
+        {
+            string url = "https://vk.com/winsomequill";
+            ProcessStartInfo sInfo = new ProcessStartInfo(url)
+            {
+                UseShellExecute = true,
+            };
+            Process.Start(sInfo);
+        }
+
+        private void HyperLinkAboutGitHub_Click(object sender, RoutedEventArgs e)
+        {
+            string url = "https://github.com/WinsomeQuill/MaterialsManager";
+            ProcessStartInfo sInfo = new ProcessStartInfo(url)
+            {
+                UseShellExecute = true,
+            };
+            Process.Start(sInfo);
         }
     }
 }
